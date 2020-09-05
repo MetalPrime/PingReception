@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent i = new Intent(this,makePing.class);
                         i.putExtra("input",inputIP);
                         Log.e("IP",inputIP);
+                        startActivity(i);
                     }
 
                 }

@@ -32,15 +32,19 @@ public class makePing extends AppCompatActivity {
                     try {
                         InetAddress inetAddress = InetAddress.getByName(getInput);
 
-                        boolean reach =inetAddress.isReachable(500);
-
-                        /////// falta la variable
+                        pingAnswer.setText("");
+                        /////// falta la variable para sumar
                         for (int i=0; i<4;i++){
+
+                            boolean reach =inetAddress.isReachable(1000);
+                            Log.e("Status",getInput);
                             if(reach){
-                                pingAnswer.setText("se conecto" + " " + getInput);
+                                pingAnswer.append("Sé conecto" + " " + getInput+"\n");
+
                             } else {
-                                pingAnswer.setText("no se conecto");
+                                pingAnswer.append("No sé conecto"+"\n");
                             }
+                            Thread.sleep(2000);
                         }
 
                     } catch (UnknownHostException e) {
@@ -48,6 +52,9 @@ public class makePing extends AppCompatActivity {
                         e.printStackTrace();
                     } catch (IOException e) {
                         //por si no es alcanzable
+                        e.printStackTrace();
+                        //para el sleep
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }

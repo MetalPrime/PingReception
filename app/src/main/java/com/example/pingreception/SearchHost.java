@@ -31,13 +31,24 @@ public class SearchHost extends AppCompatActivity {
         new Thread(
                 ()->{
                     try {
-                        hostAnswer.setText("");
+                        runOnUiThread(
+                                () -> {
+                                    hostAnswer.setText("");
+                                }
+                        );
+
                         for (int i=0; i<254; i++){
                             InetAddress inetAddress = InetAddress.getByName(getHost+i);
                             Log.e("currentIP",inetAddress.toString());
                             boolean isReachable = inetAddress.isReachable(1000);
                             if(isReachable){
-                                hostAnswer.append(getHost+i+"\n");
+                                int finalI = i;
+                                runOnUiThread(
+                                        () ->{
+                                            hostAnswer.append(getHost+ finalI +"\n");
+                                        }
+                                );
+
                             }
                         Thread.sleep(1000);
                         }

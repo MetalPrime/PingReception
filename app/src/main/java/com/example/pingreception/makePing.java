@@ -31,19 +31,29 @@ public class makePing extends AppCompatActivity {
                 () ->{
                     try {
                         InetAddress inetAddress = InetAddress.getByName(getInput);
+                        runOnUiThread(
+                                () ->{
+                                    pingAnswer.setText("");
+                                }
+                        );
 
-                        pingAnswer.setText("");
                         /////// falta la variable para sumar
                         for (int i=0; i<4;i++){
 
                             boolean reach =inetAddress.isReachable(1000);
                             Log.e("Status",getInput);
-                            if(reach){
-                                pingAnswer.append("Sé conecto" + " " + getInput+"\n");
+                            runOnUiThread(
+                                    () ->{
+                                        if(reach){
+                                            pingAnswer.append("Sé conecto" + " " + getInput+"\n");
 
-                            } else {
-                                pingAnswer.append("No sé conecto"+"\n");
-                            }
+                                        } else {
+                                            pingAnswer.append("No sé conecto"+"\n");
+                                        }
+
+                                    }
+                            );
+
                             Thread.sleep(2000);
                         }
 

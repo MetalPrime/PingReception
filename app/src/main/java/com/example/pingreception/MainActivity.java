@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnPing;
     private Button btnSearhHost;
     private String inputIP;
-    
+    private String currentIP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +54,15 @@ public class MainActivity extends AppCompatActivity {
 
         btnSearhHost.setOnClickListener(
                 view -> {
-                    Intent i = new Intent(this,SearchHost.class);
-                    startActivity(i);
+                    if(iP1.getText().toString().equals("") || iP2.getText().toString().equals("")
+                            || iP3.getText().toString().equals("") ){
+                        Toast.makeText(this,"Por favor digite un IP Adress",Toast.LENGTH_LONG).show();
+                    } else {
+                        currentIP = iP1.getText().toString() + "." + iP2.getText().toString() + "." + iP3.getText().toString() + ".";
+                        Intent i = new Intent(this, SearchHost.class);
+                        i.putExtra("host", currentIP);
+                        startActivity(i);
+                    }
                 }
         );
 

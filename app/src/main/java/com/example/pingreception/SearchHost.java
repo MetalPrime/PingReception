@@ -15,7 +15,7 @@ public class SearchHost extends AppCompatActivity {
 
     private TextView hostAnswer;
     private Button goBack;
-    private String textVisible;
+    private String getHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +24,8 @@ public class SearchHost extends AppCompatActivity {
 
         hostAnswer = findViewById(R.id.hostAnswer);
         goBack = findViewById(R.id.goBack);
-
-
+        getHost = getIntent().getStringExtra("host");
+        Log.e("IP",getHost);
 
 
         new Thread(
@@ -33,18 +33,20 @@ public class SearchHost extends AppCompatActivity {
                     try {
                         hostAnswer.setText("");
                         for (int i=0; i<254; i++){
-                            InetAddress inetAddress = InetAddress.getByName("10.0.2."+i);
+                            InetAddress inetAddress = InetAddress.getByName(getHost+i);
                             Log.e("currentIP",inetAddress.toString());
                             boolean isReachable = inetAddress.isReachable(1000);
                             if(isReachable){
-                                hostAnswer.append("192.168.0."+i+"\n");
+                                hostAnswer.append(getHost+i+"\n");
                             }
-
+                        Thread.sleep(1000);
                         }
 
                     } catch (UnknownHostException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }

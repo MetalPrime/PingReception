@@ -3,6 +3,7 @@ package com.example.pingreception;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -24,15 +25,21 @@ public class SearchHost extends AppCompatActivity {
         hostAnswer = findViewById(R.id.hostAnswer);
         goBack = findViewById(R.id.goBack);
 
-        textVisible = "";
+
+
 
         new Thread(
                 ()->{
                     try {
+                        hostAnswer.setText("");
                         for (int i=0; i<254; i++){
-                            InetAddress inetAddress = InetAddress.getByName("");
+                            InetAddress inetAddress = InetAddress.getByName("10.0.2."+i);
+                            Log.e("currentIP",inetAddress.toString());
                             boolean isReachable = inetAddress.isReachable(1000);
-                            textVisible = ("192.168.0."+i+"\n");
+                            if(isReachable){
+                                hostAnswer.append("192.168.0."+i+"\n");
+                            }
+
                         }
 
                     } catch (UnknownHostException e) {
@@ -43,6 +50,11 @@ public class SearchHost extends AppCompatActivity {
                 }
         ).start();
 
-        hostAnswer.setText(textVisible);
+
+        goBack.setOnClickListener(
+                (view) -> {
+                    finish();
+                }
+        );
     }
 }

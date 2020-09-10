@@ -61,7 +61,11 @@ public class makePing extends AppCompatActivity {
         ).start();
 
 
-
+        goBack.setOnClickListener(
+                (view) -> {
+                    finish();
+                }
+        );
 
 
     }

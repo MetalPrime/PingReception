@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnPing;
     private Button btnSearhHost;
     private String inputIP;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(i);
                     }
 
+                }
+        );
+
+        btnSearhHost.setOnClickListener(
+                view -> {
+                    Intent i = new Intent(this,SearchHost.class);
+                    startActivity(i);
                 }
         );
 
